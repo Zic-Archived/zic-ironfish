@@ -173,10 +173,10 @@ async function startNode() {
 
             child.on('close', async function (code) {
                 // scriptOutput += `child process exited with code ${code}`
-                scriptOutput = scriptOutput.split('\n').slice(-10).join('\n') + `\nchild process exited with code ${code}`
+                scriptOutput = scriptOutput.split('\n').slice(-14).join('\n') + `\nchild process exited with code ${code}`
                 log(`child process exited with code ${code}`)
                 // reject(new Error(scriptOutput))
-                await sendMessageToChannel(scriptOutput)
+                await sendMessageToChannel('🤬 🤬 ' + scriptOutput)
                 resolve(false)
                 child.stdin.pause()
                 child.kill()
