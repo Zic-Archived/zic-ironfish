@@ -17,7 +17,7 @@ const log = console.log
 const logErr = log
 let firstTimeCheck = true
 
-new CronJob('0 2 * * * *', async function () {
+new CronJob('0 * * * * *', async function () {
     try {
         log('This is from cron job')
         let result = await checkNodeStatus()
@@ -130,7 +130,16 @@ async function startNode(domainName) {
                     try {
                         // child.stdin.pause()
                         // child.kill()
+                        await sendMessageToChannel('Connected to the Iron Fish network')
                         resolve(true)
+                    } catch (err) {
+                        reject(err)
+                    }
+                } else if (data.includes('Not connected to the Iron Fish network')) {
+                    try {
+                        child.stdin.pause()
+                        child.kill()
+                        reject(new Error(data))
                     } catch (err) {
                         reject(err)
                     }
