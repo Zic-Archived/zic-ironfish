@@ -166,7 +166,8 @@ async function startNode(domainName) {
             })
 
             child.on('close', async function (code) {
-                scriptOutput += `child process exited with code ${code}`
+                // scriptOutput += `child process exited with code ${code}`
+                scriptOutput = scriptOutput.split('\n').slice(-10).join('\n') +  `\nchild process exited with code ${code}`
                 log(`child process exited with code ${code}`)
                 reject(new Error(scriptOutput))
                 child.stdin.pause()
