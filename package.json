@@ -1,0 +1,28 @@
+{
+  "name": "zic-ironfish",
+  "version": "1.0.1",
+  "description": "zic ironfish miners bot",
+  "main": "ironfish.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "zic",
+    "ironfish",
+    "miners",
+    "bot",
+    "crypto",
+    "coin",
+    "cpu",
+    "gpu",
+    "blockchain"
+  ],
+  "author": "@zickieloox",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cron": "^2.0.0",
+    "dotenv": "^16.0.1",
+    "moment": "^2.29.3"
+  }
+}
