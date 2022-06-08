@@ -115,7 +115,7 @@ async function main() {
 }
 
 
-async function startNode(domainName) {
+async function startNode() {
     return new Promise(async (resolve, reject) => {
         try {
             const child = spawn('ironfish', ['start'])
@@ -138,15 +138,19 @@ async function startNode(domainName) {
                     }
                 } else if (data.includes('Not connected to the Iron Fish network')) {
                     try {
+                        await sendMessageToChannel('Not connected to the Iron Fish network')
+                        resolve(false)
+                        // reject(new Error(data))
                         child.stdin.pause()
                         child.kill()
-                        reject(new Error(data))
                     } catch (err) {
                         reject(err)
                     }
                 } else if (data.includes('Failed authorization procedure')) {
                     try {
-                        reject(new Error(data))
+                        // reject(new Error(data))
+                        await sendMessageToChannel('Some Error Occured')
+                        resolve(false)
                         child.stdin.pause()
                         child.kill()
                     } catch (err) {
@@ -164,7 +168,9 @@ async function startNode(domainName) {
                 data = data.toString()
                 if (data.includes('Failed authorization procedure')) {
                     try {
-                        reject(new Error(data))
+                        // reject(new Error(data))
+                        await sendMessageToChannel('Some Error Occured')
+                        resolve(false)
                         child.stdin.pause()
                         child.kill()
                     } catch (err) {
@@ -177,9 +183,11 @@ async function startNode(domainName) {
 
             child.on('close', async function (code) {
                 // scriptOutput += `child process exited with code ${code}`
-                scriptOutput = scriptOutput.split('\n').slice(-10).join('\n') +  `\nchild process exited with code ${code}`
+                scriptOutput = scriptOutput.split('\n').slice(-10).join('\n') + `\nchild process exited with code ${code}`
                 log(`child process exited with code ${code}`)
-                reject(new Error(scriptOutput))
+                // reject(new Error(scriptOutput))
+                await sendMessageToChannel(scriptOutput)
+                resolve(false)
                 child.stdin.pause()
                 child.kill()
 
