@@ -120,16 +120,16 @@ async function startNode(domainName) {
             const child = spawn('ironfish', ['start'])
 
             let scriptOutput = ''
-    
+
             child.stdout.setEncoding('utf8')
             child.stdout.on('data', async function (data) {
                 log('stdout: ' + data.toString())
-    
+
                 data = data.toString()
                 if (data.includes('Connected to the Iron Fish network')) {
                     try {
-                        child.stdin.pause()
-                        child.kill()
+                        // child.stdin.pause()
+                        // child.kill()
                         resolve(true)
                     } catch (err) {
                         reject(err)
@@ -143,24 +143,16 @@ async function startNode(domainName) {
                         reject(err)
                     }
                 }
-    
+
                 scriptOutput += data
             })
-    
+
             child.stderr.setEncoding('utf8')
             child.stderr.on('data', async function (data) {
                 log('stderr: ' + data.toString())
-    
+
                 data = data.toString()
-                if (data.includes('Connected to the Iron Fish network')) {
-                    try {
-                        child.stdin.pause()
-                        child.kill()
-                        resolve(true)
-                    } catch (err) {
-                        reject(err)
-                    }
-                } else if (data.includes('Failed authorization procedure')) {
+                if (data.includes('Failed authorization procedure')) {
                     try {
                         reject(new Error(data))
                         child.stdin.pause()
@@ -169,17 +161,17 @@ async function startNode(domainName) {
                         reject(err)
                     }
                 }
-    
+
                 scriptOutput += data
             })
-    
+
             child.on('close', async function (code) {
                 scriptOutput += `child process exited with code ${code}`
                 log(`child process exited with code ${code}`)
                 reject(new Error(scriptOutput))
                 child.stdin.pause()
                 child.kill()
-    
+
                 // resolve(startNode())
 
                 // await execCommand('pkill certbot')
