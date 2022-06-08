@@ -28,7 +28,7 @@ new CronJob('0 * * * * *', async function () {
         }
     } catch (err) {
         log(err.message)
-        sendMessageToChannel('🤬 🤬' + err.message)
+        sendMessageToChannel('🤬 🤬 ' + err.message)
         logErr(err)
     }
 }, null, true)
@@ -43,7 +43,7 @@ async function checkNodeStatus() {
                     log('Node is not running')
                     // reject(new Error('Node is not running | ' + err.message))
 
-                    await sendMessageToChannel('Node is not running | ' + err.message)
+                    await sendMessageToChannel('⛔️ ⛔️ Node is not running | ' + err.message)
                     resolve(false)
 
                     return
@@ -54,7 +54,7 @@ async function checkNodeStatus() {
                     log('Node is not running')
                     // reject(new Error('Node is not running | ' + stderr))
 
-                    await sendMessageToChannel('Node is not running | ' + stderr)
+                    await sendMessageToChannel('⛔️ ⛔️ Node is not running | ' + stderr)
                     resolve(false)
 
                     return
@@ -68,7 +68,7 @@ async function checkNodeStatus() {
 
                     if (firstTimeCheck) {
                         firstTimeCheck = false
-                        await sendMessageToChannel('Node is running')
+                        await sendMessageToChannel('✅ ✅ Node is running')
                     }
 
                     resolve(true)
@@ -76,20 +76,20 @@ async function checkNodeStatus() {
                     log('Node is not running')
                     // reject(new Error('Node is not running | ' + 'STOPPED'))
 
-                    await sendMessageToChannel('Node is not running | ' + 'STOPPED')
+                    await sendMessageToChannel('⛔️ ⛔️ Node is not running | ' + 'STOPPED')
                     resolve(false)
                 } else {
                     log('Node is not running')
                     // reject(new Error('Node is not running | ' + stdout))
 
-                    await sendMessageToChannel('Node is not running | ' + stdout)
+                    await sendMessageToChannel('⛔️ ⛔️ Node is not running | ' + stdout)
                     resolve(false)
                 }
             })
         } catch (err) {
             // reject(err)
 
-            await sendMessageToChannel('Node is not running | ' + err.message)
+            await sendMessageToChannel('⛔️ ⛔️ Node is not running | ' + err.message)
             resolve(false)
         }
     })
@@ -109,7 +109,7 @@ async function main() {
         // await startNode()
     } catch (err) {
         log(err.message)
-        sendMessageToChannel('🤬 🤬' + err.message)
+        sendMessageToChannel('🤬 🤬 ' + err.message)
         logErr(err)
     }
 }
@@ -131,26 +131,16 @@ async function startNode() {
                     try {
                         // child.stdin.pause()
                         // child.kill()
-                        await sendMessageToChannel('Connected to the Iron Fish network')
+                        await sendMessageToChannel('✅ ✅ Connected to the Iron Fish network')
                         resolve(true)
                     } catch (err) {
                         reject(err)
                     }
                 } else if (data.includes('Not connected to the Iron Fish network')) {
                     try {
-                        await sendMessageToChannel('Not connected to the Iron Fish network')
+                        await sendMessageToChannel('⛔️ ⛔️ Not connected to the Iron Fish network')
                         resolve(false)
                         // reject(new Error(data))
-                        child.stdin.pause()
-                        child.kill()
-                    } catch (err) {
-                        reject(err)
-                    }
-                } else if (data.includes('Failed authorization procedure')) {
-                    try {
-                        // reject(new Error(data))
-                        await sendMessageToChannel('Some Error Occured')
-                        resolve(false)
                         child.stdin.pause()
                         child.kill()
                     } catch (err) {
@@ -166,10 +156,10 @@ async function startNode() {
                 log('stderr: ' + data.toString())
 
                 data = data.toString()
-                if (data.includes('Failed authorization procedure')) {
+                if (data.includes('Some Error Occured')) {
                     try {
                         // reject(new Error(data))
-                        await sendMessageToChannel('Some Error Occured')
+                        await sendMessageToChannel('🤬 🤬 Some Error Occured')
                         resolve(false)
                         child.stdin.pause()
                         child.kill()
@@ -202,7 +192,7 @@ async function startNode() {
             })
         } catch (err) {
             log(err.message)
-            sendMessageToChannel('🤬 🤬' + err.message)
+            sendMessageToChannel('🤬 🤬 ' + err.message)
             logErr(err)
         }
     })
