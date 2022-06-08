@@ -71,13 +71,25 @@ async function checkNodeStatus() {
                     }
 
                     resolve(true)
+                } else if (stdout.includes('Node                 STOPPED')) {
+                    log('Node is not running')
+                    // reject(new Error('Node is not running | ' + 'STOPPED'))
+
+                    await sendMessageToChannel('Node is not running | ' + 'STOPPED')
+                    resolve(false)
                 } else {
                     log('Node is not running')
-                    reject(new Error('Node is not running ' + stdout))
+                    // reject(new Error('Node is not running | ' + stdout))
+
+                    await sendMessageToChannel('Node is not running | ' + stdout)
+                    resolve(false)
                 }
             })
         } catch (err) {
-            reject(err)
+            // reject(err)
+
+            await sendMessageToChannel('Node is not running | ' + err.message)
+            resolve(false)
         }
     })
 }
