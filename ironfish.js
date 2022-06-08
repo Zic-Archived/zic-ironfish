@@ -1,6 +1,7 @@
 require('dotenv').config({
     path: '../.env'
 })
+console.log(process.env.SERVER_IP, process.env.SERVER_ID)
 const {
     exec,
     spawn
