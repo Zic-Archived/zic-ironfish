@@ -1,7 +1,7 @@
 require('dotenv').config({
     path: '../.env'
 })
-console.log(process.env.SERVER_IP, process.env.SERVER_ID)
+console.log(process.env.SERVER_IP, process.env.SERVER_ID, process.env.COMMAND_METHOD)
 const {
     exec,
     spawn
@@ -17,6 +17,8 @@ const CronJob = require('cron').CronJob
 const log = console.log
 const logErr = log
 let firstTimeCheck = true
+
+const IRONFISH_COMMAND = process.env.COMMAND_METHOD == 'yarn' ? 'yarn start' : 'ironfish'
 
 new CronJob('0 * * * * *', async function () {
     try {
@@ -37,7 +39,9 @@ new CronJob('0 * * * * *', async function () {
 async function checkNodeStatus() {
     return new Promise(async (resolve, reject) => {
         try {
-            exec('ironfish status', async (err, stdout, stderr) => {
+            exec(IRONFISH_COMMAND + ' status', {
+                cwd: IRONFISH_COMMAND == 'yarn start' ? path.resolve(__dirname, '../') : path.resolve(__dirname, './')
+            }, async (err, stdout, stderr) => {
                 if (err) {
                     console.log(`error: ${err.message}`)
                     log('Node is not running')
@@ -118,7 +122,11 @@ async function main() {
 async function startNode() {
     return new Promise(async (resolve, reject) => {
         try {
-            const child = spawn('ironfish', ['start'])
+            const param1 = IRONFISH_COMMAND == 'yarn start' ? 'yarn' : IRONFISH_COMMAND
+            const param2 = IRONFISH_COMMAND == 'yarn start' ? ['start', 'start'] : ['start']
+            const child = spawn(param1, param2, {
+                cwd: IRONFISH_COMMAND == 'yarn start' ? path.resolve(__dirname, '../') : path.resolve(__dirname, './')
+            })
 
             let scriptOutput = ''
 
