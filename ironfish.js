@@ -47,6 +47,8 @@ async function checkNodeStatus() {
                     log('Node is not running')
                     // reject(new Error('Node is not running | ' + err.message))
 
+                    pingNode(0)
+
                     await sendMessageToChannel('⛔️ ⛔️ Node is not running | ' + err.message)
                     resolve(false)
 
@@ -57,6 +59,8 @@ async function checkNodeStatus() {
                     console.log(`stderr: ${stderr}`)
                     log('Node is not running')
                     // reject(new Error('Node is not running | ' + stderr))
+
+                    pingNode(0)
 
                     await sendMessageToChannel('⛔️ ⛔️ Node is not running | ' + stderr)
                     resolve(false)
@@ -70,6 +74,8 @@ async function checkNodeStatus() {
                 if (stdout.includes('Node                 STARTED')) {
                     log('Node is running')
 
+                    pingNode(1)
+
                     if (firstTimeCheck) {
                         firstTimeCheck = false
                         await sendMessageToChannel('✅ ✅ Node is running')
@@ -80,11 +86,15 @@ async function checkNodeStatus() {
                     log('Node is not running')
                     // reject(new Error('Node is not running | ' + 'STOPPED'))
 
+                    pingNode(0)
+
                     await sendMessageToChannel('⛔️ ⛔️ Node is not running | ' + 'STOPPED')
                     resolve(false)
                 } else {
                     log('Node is not running')
                     // reject(new Error('Node is not running | ' + stdout))
+
+                    pingNode(0)
 
                     await sendMessageToChannel('⛔️ ⛔️ Node is not running | ' + stdout)
                     resolve(false)
@@ -139,6 +149,9 @@ async function startNode() {
                     try {
                         // child.stdin.pause()
                         // child.kill()
+
+                        pingNode(1)
+
                         await sendMessageToChannel('✅ ✅ Connected to the Iron Fish network')
                         resolve(true)
                     } catch (err) {
@@ -201,6 +214,28 @@ async function startNode() {
         } catch (err) {
             log(err.message)
             sendMessageToChannel('🤬 🤬 ' + err.message)
+            logErr(err)
+        }
+    })
+}
+
+async function pingNode(nodeStatus) {
+    setImmediate(async () => {
+        try {
+            let data = (await axios.post('https://iamzic.com/miners/pingNode', {
+                nodeName: `${process.env.SERVER_ID} - ${process.env.SERVER_IP}`,
+                nodeStatus: nodeStatus,
+                updatedAt: Date.now() / 1000 | 0
+            }, {
+                timeout: 5 * 60000,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })).data
+
+            log('pingNode', data)
+        } catch (err) {
+            log(err.message)
             logErr(err)
         }
     })
