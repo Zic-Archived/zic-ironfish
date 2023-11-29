@@ -1,0 +1,72 @@
+08/06/2022 22:59:00 | Node is not running | Command failed: ironfish status
+    SyntaxError: Unexpected token '?'
+
+08/06/2022 22:59:01 | 🤬 🤬    SyntaxError: Unexpected token '.'
+
+child process exited with code 1
+08/06/2022 23:00:00 | Node is not running | Command failed: ironfish status
+    SyntaxError: Unexpected token '?'
+
+08/06/2022 23:00:01 | 🤬 🤬    SyntaxError: Unexpected token '.'
+
+child process exited with code 1
+08/06/2022 23:01:00 | Node is not running | Command failed: ironfish status
+    SyntaxError: Unexpected token '?'
+
+08/06/2022 23:01:01 | 🤬 🤬    SyntaxError: Unexpected token '.'
+
+child process exited with code 1
+12/06/2022 19:43:11 | ⛔️ ⛔️ Node is not running | Command failed: ironfish status
+    SyntaxError: Unexpected token '?'
+
+12/06/2022 19:43:16 | 🤬 🤬     SyntaxError: Unexpected token '.'
+
+child process exited with code 1
+12/06/2022 19:46:00 | ⛔️ ⛔️ Node is not running | Command failed: ironfish status
+    SyntaxError: Unexpected token '?'
+
+12/06/2022 19:46:02 | 🤬 🤬     SyntaxError: Unexpected token '.'
+
+child process exited with code 1
+12/06/2022 19:48:48 | ⛔️ ⛔️ Node is not running | Command failed: ironfish status
+    SyntaxError: Unexpected token '?'
+
+12/06/2022 19:48:53 | 🤬 🤬     SyntaxError: Unexpected token '.'
+
+child process exited with code 1
+12/06/2022 19:49:00 | ⛔️ ⛔️ Node is not running | Command failed: ironfish status
+    SyntaxError: Unexpected token '?'
+
+12/06/2022 19:49:05 | 🤬 🤬     SyntaxError: Unexpected token '.'
+
+child process exited with code 1
+12/06/2022 19:53:25 | ⛔️ ⛔️ Node is not running | Command failed: ironfish status
+    SyntaxError: Unexpected token '?'
+
+12/06/2022 19:53:28 | 🤬 🤬     SyntaxError: Unexpected token '.'
+
+child process exited with code 1
+12/06/2022 19:54:08 | ⛔️ ⛔️ Node is not running | Command failed: ironfish status
+    SyntaxError: Unexpected token '?'
+
+12/06/2022 19:54:13 | 🤬 🤬     SyntaxError: Unexpected token '.'
+
+child process exited with code 1
+12/06/2022 19:55:07 | ⛔️ ⛔️ Node is not running | Command failed: ironfish status
+    SyntaxError: Unexpected token '?'
+
+12/06/2022 19:55:30 | ⛔️ ⛔️ Node is not running | Command failed: ironfish status
+    SyntaxError: Unexpected token '?'
+
+12/06/2022 19:55:35 | 🤬 🤬     SyntaxError: Unexpected token '.'
+
+child process exited with code 1
+12/06/2022 19:57:00 | ⛔️ ⛔️ Node is not running | Command failed: ironfish status
+    SyntaxError: Unexpected token '?'
+
+12/06/2022 20:15:37 | ⛔️ ⛔️ Node is not running | Command failed: ironfish status
+    SyntaxError: Unexpected token '?'
+
+12/06/2022 20:15:41 | 🤬 🤬     SyntaxError: Unexpected token '.'
+
+child process exited with code 1
